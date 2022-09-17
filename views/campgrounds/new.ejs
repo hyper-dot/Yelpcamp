@@ -1,10 +1,62 @@
 <% layout('layouts/boilerplate') %>
 
-<h1>Add Campground</h1>
-<form action="/campgrounds" method="post">
-  <label for="title">Title</label>
-  <input type="text" id="title" name="campground[title]" />
-  <label for="location">Location</label>
-  <input type="text" name="campground[location]" id="location" />
-  <button>Add Campgound</button>
-</form>
+<div class="row my-5">
+  <div class="col-6 offset-3">
+    <h1>Add Campground</h1>
+    <form action="/campgrounds" method="post">
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input
+          type="text"
+          class="form-control"
+          id="title"
+          name="campground[title]"
+        />
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="location">Location</label>
+        <input
+          type="text"
+          class="form-control"
+          name="campground[location]"
+          id="location"
+        />
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="price">Campground Price</label>
+        <div class="input-group">
+          <span class="input-group-text" id="price-label">$</span>
+          <input
+            type="number"
+            id="price"
+            name="campground[price]"
+            class="form-control"
+            aria-describedby="price-label"
+          />
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea
+          class="form-control"
+          name="campground[description]"
+          id="description"
+          cols="30"
+          rows="10"
+        ></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="image" class="form-label"
+          >Image choolse number from 0 to 5 and add .jpg at the end</label
+        >
+        <input
+          type="text"
+          name="campground[image]"
+          id="image"
+          class="form-control"
+        />
+      </div>
+      <button class="btn btn-primary mt-3">Add Campgound</button>
+    </form>
+  </div>
+</div>
