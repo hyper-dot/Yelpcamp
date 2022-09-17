@@ -4,9 +4,8 @@ const path = require('path');
 const methodOverride = require('method-override');
 const mongoose = require('mongoose');
 const Campground = require('./models/campground');
-const campground = require('./models/campground');
-const { read } = require('fs');
 const URI = 'mongodb://127.0.0.1:27017/Yelpcamp';
+const ejsMate = require('ejs-mate');
 
 //Mongodb Connection
 mongoose.connect(URI);
@@ -16,11 +15,15 @@ db.once('open', () => {
   console.log('Connection Open!!');
 });
 
-// all Middlewares
+//All app settings
+app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+
+// all Middlewares
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
+app.use(express.static('public'));
 
 //All Routes
 
