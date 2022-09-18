@@ -29,7 +29,7 @@ const seedDb = async () => {
       title: `${sample(descriptors)} ${sample(places)}`,
       location: `${cities[random1000].city}, ${cities[random1000].state}`,
       description:
-        'Description is the pattern of narrative development that aims to make vivid a place, object, character, or group.[1] Description is one of four rhetorical modes (also known as modes of discourse), along with exposition, argumentation, and narration.[2] In practice it would be difficult to write literature that drew on just one of the four basic modes.Description is the fiction-writing mode for transmitting a mental image of the particulars of a story.',
+        'Description is the pattern of narrative development that aims to make vivid a place, object, character, or group.[1] Description is one of four rhetorical modes (also known as modes of discourse), along with exposition, argumentation, and narration.',
       image: `${random5}.jpg`,
       price: `${random1000}`,
     });
