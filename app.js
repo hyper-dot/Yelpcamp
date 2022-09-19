@@ -8,8 +8,7 @@ const URI = 'mongodb://127.0.0.1:27017/Yelpcamp';
 const ejsMate = require('ejs-mate');
 const catchAsync = require('./utils/CatchAsync');
 const ExpressError = require('./utils/ExpressErrors');
-const Joi = require('joi');
-
+const { validateCampground } = require('./utils/validateCampground');
 //Mongodb Connection
 mongoose.connect(URI);
 const db = mongoose.connection;
@@ -52,19 +51,8 @@ app.get('/campgrounds/new', (req, res) => {
 
 app.post(
   '/campgrounds',
+  validateCampground,
   catchAsync(async (req, res, next) => {
-    const campgroundSchema = Joi.object({
-      campground: Joi.object({
-        title: Joi.string().required(),
-        price: Joi.string().required().min(0),
-      }),
-    }).required();
-    const { error } = campgroundSchema.validate(req.body);
-    if (error) {
-      const msg = error.details.map((el) => el.message).join(',');
-      throw new ExpressError(msg, 400);
-    }
-
     const campground = new Campground(req.body.campground);
     await campground.save();
     res.redirect(`campgrounds/${campground._id}`);
@@ -84,6 +72,7 @@ app.get(
 //...................Edit campground..............
 app.put(
   '/campgrounds/:id',
+  validateCampground,
   catchAsync(async (req, res) => {
     const { id } = req.params;
     const campground = await Campground.findByIdAndUpdate(id, {
