@@ -4,11 +4,12 @@ const path = require('path');
 const methodOverride = require('method-override');
 const mongoose = require('mongoose');
 const Campground = require('./models/campground');
+const Review = require('./models/review');
 const URI = 'mongodb://127.0.0.1:27017/Yelpcamp';
 const ejsMate = require('ejs-mate');
 const catchAsync = require('./utils/CatchAsync');
 const ExpressError = require('./utils/ExpressErrors');
-const { validateCampground } = require('./utils/validateCampground');
+const { validateCampground, validateReview } = require('./utils/validations');
 //Mongodb Connection
 mongoose.connect(URI);
 const db = mongoose.connection;
@@ -99,7 +100,19 @@ app.delete(
     res.redirect('/campgrounds');
   })
 );
-
+//....................Reviews Route......................
+app.post(
+  '/campgrounds/:id/reviews',
+  validateReview,
+  catchAsync(async (req, res) => {
+    const campground = await Campground.findById(req.params.id);
+    const review = new Review(req.body.review);
+    campground.reviews.push(review);
+    await review.save();
+    await campground.save();
+    res.redirect(`/campgrounds/${campground._id}`);
+  })
+);
 //For all routes that doesn't exists
 app.all('*', (req, res, next) => {
   err = new ExpressError('Page not found', 404);

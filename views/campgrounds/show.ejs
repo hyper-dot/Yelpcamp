@@ -15,20 +15,49 @@
         <p class="list-group-item"><strong>$</strong><%= campground.price %></p>
         <p class="list-group-item"><%= campground.description %></p>
       </div>
-      <a href="/campgrounds" class="btn btn-secondary"
-        >Go back to All campgrounds</a
+
+      <a
+        href="/campgrounds/<%= campground.id %>/edit"
+        class="btn btn-outline-info"
+        >Edit</a
       >
-      <div class="mt-2">
-        <a href="/campgrounds/<%= campground.id %>/edit" class="btn btn-primary"
-          >Edit Campground</a
-        >
-      </div>
+
       <form
-        action="/campgrounds/<%= campground.id %>?_method=DELETE "
+        class="d-inline"
+        action="/campgrounds/<%= campground.id %>?_method=DELETE"
         method="post"
       >
-        <button class="btn btn-danger mt-2">Delete Campground</button>
+        <button class="btn btn-outline-danger d-inline">Delete</button>
       </form>
     </div>
+  </div>
+  <h2 class="m-3">Leave a review:</h2>
+  <div class="m-3">
+    <form
+      action="/campgrounds/<%=campground._id%>/reviews"
+      method="post"
+      class="mb-3 needs-validation"
+      novalidate
+    >
+      <label class="form-label" for="rating">Rating</label>
+      <input
+        class="form-range mb-2"
+        min="0"
+        max="5"
+        type="range"
+        name="review[rating]"
+        id="rating"
+      />
+      <label class="form-label" for="body">Write a review</label>
+      <textarea
+        class="form-control"
+        name="review[body]"
+        id="body"
+        cols="50"
+        rows="3"
+        required
+      ></textarea>
+      <button class="btn btn-outline-success m-2">Submit</button>
+    </form>
   </div>
 </div>
