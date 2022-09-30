@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Yelpcamp</title>
+    <!-- CSS only -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -14,37 +15,17 @@
   </head>
   <body class="d-flex flex-column vh-100">
     <%- include ('../partials/navbar') %>
-    <main class="container"><%- body %></main>
+    <main class="container">
+      <%- include ('../partials/flash') %> <%- body %>
+    </main>
     <%- include ('../partials/footer') %>
+    <!-- JavaScript Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+      crossorigin="anonymous"
+    ></script>
   </body>
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
-    crossorigin="anonymous"
-  ></script>
 
-  <script>
-    (function () {
-      'use strict';
-
-      // Fetch all the forms we want to apply custom Bootstrap validation styles to
-      var forms = document.querySelectorAll('.needs-validation');
-
-      // Loop over them and prevent submission
-      Array.prototype.slice.call(forms).forEach(function (form) {
-        form.addEventListener(
-          'submit',
-          function (event) {
-            if (!form.checkValidity()) {
-              event.preventDefault();
-              event.stopPropagation();
-            }
-
-            form.classList.add('was-validated');
-          },
-          false
-        );
-      });
-    })();
-  </script>
+  <script src="/js/validateForm.js"></script>
 </html>
