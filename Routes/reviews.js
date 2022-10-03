@@ -4,12 +4,14 @@ const catchAsync = require('../utils/CatchAsync');
 const { validateReview } = require('../utils/validations');
 const Review = require('../models/review');
 const Campground = require('../models/campground');
+const { isLoggedIn } = require('../middleware');
 
 //....................Reviews Route......................
 //....................Creating Reviews.......................
 router.post(
   '/',
   validateReview,
+  isLoggedIn,
   catchAsync(async (req, res) => {
     const campground = await Campground.findById(req.params.id);
     const review = new Review(req.body.review);
@@ -24,6 +26,7 @@ router.post(
 
 router.delete(
   '/:reviewId',
+  isLoggedIn,
   catchAsync(async (req, res) => {
     const { id, reviewId } = req.params;
     await Campground.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
