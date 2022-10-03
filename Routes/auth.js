@@ -29,7 +29,12 @@ router.post(
 );
 
 router.get('/login', (req, res) => {
-  res.render('auth/login');
+  if (req.query.nextTo) {
+    const postRoute = `/login?nextTo=${req.query.nextTo}`;
+    return res.render('auth/login', { postRoute });
+  }
+  postRoute = '/login';
+  res.render('auth/login', { postRoute });
 });
 
 router.post(
@@ -39,10 +44,14 @@ router.post(
     failureRedirect: '/login',
   }),
   (req, res) => {
-    const redirectUrl = JSON.stringify(req.session.returnTo);
-    console.log(redirectUrl);
+    // console.log(req.query.nextTo);
+    if (!req.query.nextTo) {
+      req.flash('success', 'Welcome Back !!');
+      return res.redirect('/campgrounds');
+    }
+    const { nextTo } = req.query;
     req.flash('success', 'Welcome Back !!');
-    res.redirect('/');
+    res.redirect(nextTo);
   }
 );
 router.get('/logout', (req, res, next) => {
