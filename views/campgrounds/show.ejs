@@ -13,12 +13,15 @@
           <small class="text-muted list-group-item"
             ><%= campground.location %>
           </small>
+          <small class="list-group-item"
+            ><strong>Created By : </strong><%= campground.author.username %>
+          </small>
           <p class="list-group-item">
             <strong>$</strong><%= campground.price %>
           </p>
           <p class="list-group-item"><%= campground.description %></p>
         </div>
-
+        <% if(currentUser && campground.author.equals(currentUser._id)) {%>
         <a
           href="/campgrounds/<%= campground.id %>/edit"
           class="btn btn-outline-info"
@@ -32,6 +35,7 @@
         >
           <button class="btn btn-outline-danger d-inline">Delete</button>
         </form>
+        <% } %>
       </div>
     </div>
   </div>
@@ -47,7 +51,7 @@
         <label class="form-label" for="rating">Rating</label>
         <input
           class="form-range mb-2"
-          min="0"
+          min="1"
           max="5"
           type="range"
           name="review[rating]"
