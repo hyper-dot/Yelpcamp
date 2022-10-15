@@ -4,6 +4,7 @@ const catchAsync = require('../utils/CatchAsync');
 const { validateCampground } = require('../utils/validations');
 const ExpressError = require('../utils/ExpressErrors');
 const Campground = require('../models/campground');
+const campground = require('../controllers/campgrounds');
 const passport = require('passport');
 const { isLoggedIn } = require('../middleware');
 const session = require('express-session');
@@ -19,52 +20,20 @@ const isAuthor = async (req, res, next) => {
 };
 
 //...................All Campgrounds..................
-router.get(
-  '/',
-  catchAsync(async (req, res) => {
-    const campgrounds = await Campground.find({});
-    res.render('campgrounds/index', { campgrounds });
-  })
-);
+router.get('/', catchAsync(campground.index));
 
 //....................New Campground.....................
-router.get('/new', isLoggedIn, (req, res) => {
-  res.render('campgrounds/new');
-});
+router.get('/new', isLoggedIn, campground.renderNewForm);
 
 router.post(
   '/',
   isLoggedIn,
   validateCampground,
-  catchAsync(async (req, res, next) => {
-    const campground = new Campground(req.body.campground);
-    campground.author = req.user._id;
-    await campground.save();
-    req.flash('success', 'Successfully made a campground !!!');
-    res.redirect(`campgrounds/${campground._id}`);
-  })
+  catchAsync(campground.createCampground)
 );
 
 //......................Show campground.................
-router.get(
-  '/:id',
-  catchAsync(async (req, res) => {
-    const id = req.params.id;
-    const campground = await Campground.findById(id)
-      .populate({
-        path: 'reviews',
-        populate: {
-          path: 'author',
-        },
-      })
-      .populate('author');
-    if (!campground) {
-      req.flash('error', 'Opps cannot find the campground!!');
-      return res.redirect('/campgrounds');
-    }
-    res.render('campgrounds/show', { campground });
-  })
-);
+router.get('/:id', catchAsync(campground.showCampground));
 
 //...................Edit campground..............
 router.put(
