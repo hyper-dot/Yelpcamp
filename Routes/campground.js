@@ -2,9 +2,21 @@ const express = require('express');
 router = express.Router();
 const catchAsync = require('../utils/CatchAsync');
 const { validateCampground } = require('../utils/validations');
+const ExpressError = require('../utils/ExpressErrors');
 const Campground = require('../models/campground');
-const { isLoggedIn, isAuthor } = require('../middleware');
+const passport = require('passport');
+const { isLoggedIn } = require('../middleware');
+const session = require('express-session');
 
+const isAuthor = async (req, res, next) => {
+  const { id } = req.params;
+  const campground = await Campground.findById(id);
+  if (!campground.author.equals(req.user._id)) {
+    req.flash('error', 'Opps You do not have permission to do that');
+    res.redirect(`/campgrounds/${id}`);
+  }
+  next();
+};
 
 //...................All Campgrounds..................
 router.get(
@@ -39,7 +51,12 @@ router.get(
   catchAsync(async (req, res) => {
     const id = req.params.id;
     const campground = await Campground.findById(id)
-      .populate('reviews')
+      .populate({
+        path: 'reviews',
+        populate: {
+          path: 'author',
+        },
+      })
       .populate('author');
     if (!campground) {
       req.flash('error', 'Opps cannot find the campground!!');

@@ -13,7 +13,6 @@ const reviewsRoute = require("./Routes/reviews");
 const passport = require("passport");
 const localStrategy = require("passport-local");
 const User = require("./models/user");
-
 //Mongodb Connection
 const URI = "mongodb://127.0.0.1:27017/Yelpcamp";
 mongoose.connect(URI);
