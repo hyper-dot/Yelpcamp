@@ -31,3 +31,26 @@ module.exports.showCampground = async (req, res) => {
   }
   res.render('campgrounds/show', { campground });
 };
+module.exports.editCampground = async (req, res) => {
+  const { id } = req.params;
+  const camp = await Campground.findByIdAndUpdate(id, {
+    ...req.body.campground,
+  });
+  req.flash('success', 'Successfully Updated campground !!!');
+  res.redirect(`/campgrounds/${camp._id}`);
+};
+
+module.exports.renderEditForm = async (req, res) => {
+  const campground = await Campground.findById(req.params.id);
+  if (!campground) {
+    req.flash('error', 'Opps cannot find the campground!!');
+    return res.redirect('/campgrounds');
+  }
+  res.render('campgrounds/edit', { campground });
+};
+module.exports.deleteCampground = async (req, res) => {
+  const { id } = req.params;
+  await Campground.findByIdAndDelete(id);
+  req.flash('success', 'Successfully deleted the campground !!');
+  res.redirect('/campgrounds');
+};
