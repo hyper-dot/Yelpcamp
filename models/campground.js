@@ -22,7 +22,7 @@ const CampgroundSchema = new Schema({
 
 CampgroundSchema.post('findOneAndDelete', async function (document) {
   if (document) {
-    await Review.remove({ _id: { $in: document.reviews } });
+    await Review.deleteMany({ _id: { $in: document.reviews } });
   }
 });
 
