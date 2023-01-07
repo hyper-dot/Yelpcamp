@@ -8,7 +8,10 @@ And have to have nodejs and npm install
 git clone https://github.com/Roshanpaudel111/Yelpcamp.git
 ```
 
-### Step 2 : Go to the Yelpcamp directory and type `npm install` 
+### Step 2 : Go to the Yelpcamp directory, open terminal and enter : 
+```
+npm install
+```
 
 ### And at last run the `index.js` file using the following command : 
 ```
