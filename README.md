@@ -10,5 +10,5 @@ And have to have nodejs and npm install
 
 ### And at last run the `index.js` file using the following command : 
 ```
-node index.js
+node app.js
 ```
