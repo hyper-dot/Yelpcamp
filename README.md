@@ -4,7 +4,9 @@ To run this on your local server, you have to have a local mongodb server runnin
 And have to have nodejs and npm install
 
 ### Step 1 : clone the repo
-` git clone https://github.com/Roshanpaudel111/Yelpcamp.git`
+```
+git clone https://github.com/Roshanpaudel111/Yelpcamp.git
+```
 
 ### Step 2 : Go to the Yelpcamp directory and type `npm install` 
 
