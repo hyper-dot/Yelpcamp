@@ -13,7 +13,7 @@ git clone https://github.com/Roshanpaudel111/Yelpcamp.git
 npm install
 ```
 
-### And at last run the `index.js` file using the following command : 
+### And at last run the `app.js` file using the following command : 
 ```
 node app.js
 ```
