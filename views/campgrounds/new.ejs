@@ -8,6 +8,7 @@
       method="post"
       novalidate
       class="needs-validation"
+      enctype="multipart/form-data"
     >
       <div class="mb-3">
         <label for="title" class="form-label">Title</label>
@@ -36,6 +37,7 @@
         <div class="input-group">
           <span class="input-group-text" id="price-label">$</span>
           <input
+            type="number"
             id="price"
             name="campground[price]"
             class="form-control"
@@ -57,6 +59,10 @@
         ></textarea>
       </div>
       <div class="mb-3">
+        <label for="image" class="form-label">Image :</label>
+        <input type="file" name="image" id="" multiple>
+      </div>
+      <!-- <div class="mb-3">
         <label for="image" class="form-label"
           >Image choolse number from 0 to 5 and add .jpg at the end</label
         >
@@ -67,7 +73,7 @@
           class="form-control"
           required
         />
-      </div>
+      </div> -->
       <button class="btn btn-primary mt-3">Add Campgound</button>
     </form>
   </div>
