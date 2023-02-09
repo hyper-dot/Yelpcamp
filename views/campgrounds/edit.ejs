@@ -60,17 +60,8 @@
         >
       </div>
       <div class="mb-3">
-        <label for="image"
-          >Image choolse number from 0 to 5 and add .jpg at the end</label
-        >
-        <input
-          value="<%= campground.image %> "
-          type="text"
-          name="campground[image]"
-          id="image"
-          class="form-control"
-          required
-        />
+        <label for="image">Add images : </label>
+        <input type="file" name="image" id="image" />
       </div>
       <button class="btn btn-outline-success">Save</button>
       <a
