@@ -1,0 +1,21 @@
+# Spacefile Docs: https://go.deta.dev/docs/spacefile/v0
+v: 0
+micros:
+  - name: Yelpcamp
+    src: ./
+    engine: nodejs16
+    primary: true
+    presets:
+      env:
+        - name: MONGO
+          description: Secret message only available to this Micro
+          default: "deta is cool"
+        - name: CLOUDINARY_NAME
+          description: Secret message only available to this Micro
+          default: "deta is cool"
+        - name: CLOUDINARY_API_KEY
+          description: Secret message only available to this Micro
+          default: "deta is cool"
+        - name: CLOUDINARY_API_SECRET
+          description: Secret message only available to this Micro
+          default: "deta is cool"
